@@ -16,17 +16,15 @@ const MealDetails = ({ route, navigation }) => {
 	navigation.setOptions({
 		title: categoryTitle,
 	});
-	const handleMealItemPress = () => {};
 
-	
 	const renderMealItem = ({ item }) => {
 		const mealProps = {
+			id: item.id,
 			title: item.title,
 			imageUrl: item.imageUrl,
 			affordability: item.affordability,
 			complexity: item.complexity,
 			duration: item.duration,
-			onPress: handleMealItemPress,
 		};
 		return <MealItem {...mealProps} />;
 	};
