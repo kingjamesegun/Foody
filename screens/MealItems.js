@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import MealDetailed from '../components/MealDetailed';
+import List from '../components/MealDetailed/List';
 import { MEALS } from '../data/dummy-data';
 
 const CategoryMeal = ({ route }) => {
@@ -8,31 +9,59 @@ const CategoryMeal = ({ route }) => {
 	const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
 	return (
-		<View style={styles.screen}>
-			<Image source={{ uri: selectedMeal.imageUrl }} />
-			<Text>{selectedMeal.title}</Text>
+		<ScrollView>
+			<Image style={styles.image} source={{ uri: selectedMeal.imageUrl }} />
+			<Text style={styles.title}>{selectedMeal.title}</Text>
 			<MealDetailed
 				duration={selectedMeal.duration}
 				complexity={selectedMeal.complexity}
-				affordability={selectedMeal.affordabilitys}
+				affordability={selectedMeal.affordability}
+				textStyle={styles.textStyle}
 			/>
-			<Text>Ingredients</Text>
-			{selectedMeal.ingredients.map((ingredient) => (
-				<Text key={ingredient}>{ingredient}</Text>
-			))}
-			<Text>Steps</Text>
-			{selectedMeal.steps.map((step) => (
-				<Text key={step}>{step}</Text>
-			))}
-		</View>
+			<View style={styles.listOuterContainer}>
+				<View style={styles.listContainer}>
+					<Text style={styles.subtitle}>Ingredients</Text>
+					<List data={selectedMeal.ingredients} />
+
+					<Text style={styles.subtitle}>Steps</Text>
+					<List data={selectedMeal.steps} />
+				</View>
+			</View>
+		</ScrollView>
 	);
 };
 
 const styles = StyleSheet.create({
-	screen: {
-		flex: 1,
-		justifyContent: 'center',
+	image: {
+		width: '100%',
+		height: 350,
+	},
+	title: {
+		fontWeight: 'bold',
+		fontSize: 24,
+		margin: 8,
+		textAlign: 'center',
+		color: 'white',
+	},
+	textStyle: {
+		color: 'white',
+	},
+	subtitle: {
+		color: '#e2b497',
+		fontSize: 18,
+		fontWeight: 'bold',
+		paddingVertical: 6,
+		borderBottomColor: '#e2b497',
+		borderBottomWidth: 2,
+		marginHorizontal: 12,
+		marginVertical: 2,
+		textAlign: 'center'
+	},
+	listOuterContainer: {
 		alignItems: 'center',
+	},
+	listContainer: {
+		width: '80%',
 	},
 });
 export default CategoryMeal;

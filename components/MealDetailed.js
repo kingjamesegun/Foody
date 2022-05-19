@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-function MealDetailed({duration, complexity, affordability}) {
+function MealDetailed({duration, complexity, affordability, style, textStyle}) {
 	return (
 		<View style={styles.details}>
-			<Text style={styles.itemDetails}>{duration}</Text>
-			<Text style={styles.itemDetails}>{complexity.toUpperCase()}</Text>
-			<Text style={styles.itemDetails}>{affordability}</Text>
+			<Text style={[styles.itemDetails, textStyle]}>{duration}</Text>
+			<Text style={[styles.itemDetails ,textStyle]}>{complexity.toUpperCase()}</Text>
+			<Text style={[styles.itemDetails, textStyle]}>{affordability}</Text>
 		</View>
 	);
 }
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
 	itemDetails: {
 		marginHorizontal: 8,
 		fontSize: 14,
-		color: '#ccdcdc',
-	},
+		color: '#000',
+		textTransform: 'uppercase'
+	}
 });
