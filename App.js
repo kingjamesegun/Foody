@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Categories from './screens/Categories';
 import MealDetails from './screens/MealOverview';
 import MealItems from './screens/MealItems';
+import { Button } from 'react-native-web';
 
 const fetchFonts = async () => {
 	return await Font.loadAsync({});

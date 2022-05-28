@@ -1,12 +1,34 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import React, { useLayoutEffect } from 'react';
+import {
+	View,
+	Text,
+	StyleSheet,
+	Image,
+	ScrollView,
+} from 'react-native';
+import IconButton from '../components/IconButton';
 import MealDetailed from '../components/MealDetailed';
 import List from '../components/MealDetailed/List';
 import { MEALS } from '../data/dummy-data';
 
-const CategoryMeal = ({ route }) => {
+const CategoryMeal = ({ route, navigation }) => {
 	const mealId = route.params.mealId;
 	const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+
+	const headerButtonHandler = () => {
+		console.log('Pressed');
+	};
+
+	// Used to configure options for the screen
+	useLayoutEffect(() => {
+		navigation.setOptions({
+			headerRight: () => {
+				return (
+					<IconButton icon='star' color='white' onPress={headerButtonHandler} />
+				);
+			},
+		});
+	}, [navigation, headerButtonHandler]);
 
 	return (
 		<ScrollView>
@@ -30,6 +52,9 @@ const CategoryMeal = ({ route }) => {
 		</ScrollView>
 	);
 };
+
+
+
 
 const styles = StyleSheet.create({
 	image: {
@@ -55,7 +80,7 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 2,
 		marginHorizontal: 12,
 		marginVertical: 2,
-		textAlign: 'center'
+		textAlign: 'center',
 	},
 	listOuterContainer: {
 		alignItems: 'center',
@@ -64,4 +89,7 @@ const styles = StyleSheet.create({
 		width: '80%',
 	},
 });
+
+
+
 export default CategoryMeal;
