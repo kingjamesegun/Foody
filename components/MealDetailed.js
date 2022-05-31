@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-function MealDetailed({duration, complexity, affordability, style, textStyle}) {
+function MealDetailed({duration, complexity, affordability, textStyle}) {
 	return (
 		<View style={styles.details}>
 			<Text style={[styles.itemDetails, textStyle]}>{duration}</Text>

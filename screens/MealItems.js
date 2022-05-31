@@ -1,22 +1,25 @@
-import React, { useLayoutEffect } from 'react';
-import {
-	View,
-	Text,
-	StyleSheet,
-	Image,
-	ScrollView,
-} from 'react-native';
+import React, { useContext, useLayoutEffect } from 'react';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import IconButton from '../components/IconButton';
 import MealDetailed from '../components/MealDetailed';
 import List from '../components/MealDetailed/List';
 import { MEALS } from '../data/dummy-data';
+import FavouritesContext from '../store/context/favourities-context';
 
 const CategoryMeal = ({ route, navigation }) => {
+	const favouriteMealCtx = useContext(FavouritesContext);
 	const mealId = route.params.mealId;
 	const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+	// to know if the meal is a favourites or not
+	const mealIsFavourites = favouriteMealCtx.id.includes(mealId);
 
-	const headerButtonHandler = () => {
-		console.log('Pressed');
+	// function to toggle the favourite btn
+	const changeFavouritesStatusHandler = () => {
+		if (mealIsFavourites) {
+			favouriteMealCtx.removeFavourites(mealId);
+		} else {
+			favouriteMealCtx.addFavourites(mealId);
+		}
 	};
 
 	// Used to configure options for the screen
@@ -24,11 +27,15 @@ const CategoryMeal = ({ route, navigation }) => {
 		navigation.setOptions({
 			headerRight: () => {
 				return (
-					<IconButton icon='star' color='white' onPress={headerButtonHandler} />
+					<IconButton
+						icon={mealIsFavourites ? 'star' : 'star-outline'}
+						color='white'
+						onPress={changeFavouritesStatusHandler}
+					/>
 				);
 			},
 		});
-	}, [navigation, headerButtonHandler]);
+	}, [navigation, changeFavouritesStatusHandler]);
 
 	return (
 		<ScrollView>
@@ -52,9 +59,6 @@ const CategoryMeal = ({ route, navigation }) => {
 		</ScrollView>
 	);
 };
-
-
-
 
 const styles = StyleSheet.create({
 	image: {
@@ -89,7 +93,5 @@ const styles = StyleSheet.create({
 		width: '80%',
 	},
 });
-
-
 
 export default CategoryMeal;
