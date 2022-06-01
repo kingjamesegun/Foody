@@ -4,21 +4,21 @@ import IconButton from '../components/IconButton';
 import MealDetailed from '../components/MealDetailed';
 import List from '../components/MealDetailed/List';
 import { MEALS } from '../data/dummy-data';
-import FavouritesContext from '../store/context/favourities-context';
+import {FavouritesContext} from '../store/context/favourities-context';
 
 const CategoryMeal = ({ route, navigation }) => {
 	const favouriteMealCtx = useContext(FavouritesContext);
 	const mealId = route.params.mealId;
 	const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 	// to know if the meal is a favourites or not
-	const mealIsFavourites = favouriteMealCtx.id.includes(mealId);
+	const mealIsFavourites = favouriteMealCtx.ids.includes(mealId);
 
 	// function to toggle the favourite btn
 	const changeFavouritesStatusHandler = () => {
 		if (mealIsFavourites) {
 			favouriteMealCtx.removeFavourites(mealId);
 		} else {
-			favouriteMealCtx.addFavourites(mealId);
+			favouriteMealCtx?.addFavourites(mealId);
 		}
 	};
 
